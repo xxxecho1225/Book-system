@@ -1,0 +1,181 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="Bookmark" href="static/images/favicon.ico">
+    <link rel="Shortcut Icon" href="static/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="static/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="static/scss/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+
+    <link href="static/css/bootstrap.min.css" rel="stylesheet"   />
+    <title>用户列表</title>
+    <meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+    <meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+</head>
+
+<body>
+    <header class="navbar-wrapper">
+        <div class="navbar navbar-fixed-top">
+            <div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" >图书管理系统</a>
+{{/*                <a class="logo navbar-logo-m f-l mr-10 visible-xs" ></a>*/}}
+                <span class="logo navbar-slogan f-l mr-10 hidden-xs"></span>
+                <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
+                <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+                    <ul class="cl">
+                        <li>超级管理员</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <aside class="Hui-aside">
+        <div class="menu_dropdown bk_2">
+            <dl id="menu-picture">
+                <dt class="selected">
+                    <i class="Hui-iconfont">&#xe613;</i> 借阅关系管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd style="display:block">
+                    <ul>
+                        <li class="current"><a href="/sendbook-list" title="借阅关系列表">借阅关系列表</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-product">
+                <dt><i class="Hui-iconfont">&#xe620;</i> 图书管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd style="display:block">
+                    <ul>
+                        <li><a href="/book-list" title="图书列表">图书列表</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-admin">
+                <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd style="display:block">
+                    <ul>
+                        <li><a href="/root-list" title="管理员列表">管理员列表</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-admin">
+                <dt><i class="Hui-iconfont">&#xe62d;</i>用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd style="display:block">
+                    <ul>
+                        <li><a href="/user-list" title="用户列表">用户列表</a></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </aside>
+    <div class="dislpayArrow hidden-xs"> <a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
+    </div>
+
+    <section class="Hui-article-box">
+        <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+            <span class="c-gray en">&gt;</span>
+            用户管理
+            <span class="c-gray en">&gt;</span>
+            用户列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+                href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+        </nav>
+            <article class="cl pd-20">
+                    <form action="/queryone" method="post">
+                    <input type="text"  style="width:200px;height:30px" placeholder="输入读者名称" name="readername"/>
+                    <button type="submit" class="searchInp" style="width:100px;height:30px">搜读者名称</button>
+                    </form>
+                <div class="cl pd-5 bg-1 bk-gray mt-20">
+                <a href="/add2"><i class="Hui-iconfont"></i> 添加读者</a></span>
+                </div>
+                    <table class="table table-border table-bordered table-bg table-hover table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="200">读者ID</th>
+                            <th width="400">账号</th>
+                            <th width="200">读者名称</th>
+                            <th width="300">密码</th>
+                            <th width="200">手机</th>
+                            <th width="400">状态</th>
+                            <th width="400">借阅天数</th>
+                            <th width="200">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        {{range $v := .d}}
+                        <tr>
+                            <td>
+                                {{$v.Aid}}
+                            </td>
+                            <td>
+                                {{$v.Username}}
+                            </td>
+                            <td>
+                                {{$v.Readername}}
+                            </td>
+                            <td>
+                                {{$v.Password}}
+                            </td>
+                            <td>
+                                {{$v.Phone}}
+                            </td>
+                            <td>
+                                {{$v.Status}}
+                            </td>
+                            <td>
+                                {{$v.Sendday}}
+                            </td>
+                            <td><button class="del" style="width:80px;height:30px" onclick="de({{$v.Aid}})" >删除</button>
+                                <button class="upd" style="width:80px;height:30px" onclick="up({{$v.Aid}})">修改</button>
+                            </td>
+                        </tr>
+                        {{end}}
+                        </tbody>
+                    </table>
+                <div id="msg"></div>
+            </article>
+        </div>
+    </section>
+    <script>
+        function de(id1) {
+            alert(id1)
+                window.location.href = "/deleteone/" + id1;
+        }
+    </script>
+    <script>
+        function up(id2) {
+                window.location.href = "/update2/" + id2;
+        }
+    </script>
+
+    <script src="static/js/jquery-1.9.1.min.js"></script>
+        
+    <script src="static /js/bootstrap.min.js"></script>
+        
+    <script src="static /js/layer.js"></script>
+        
+    <script src="static/js/laypage.js"></script>
+        
+    <script src="static /js/Index2.js"></script>
+
+    <!--_footer 作为公共模版分离出去-->
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/layer1.js"></script>
+    <script type="text/javascript" src="static/js/H-ui.js"></script>
+    <script type="text/javascript" src="static/js/H-ui.admin.page.js"></script>
+    <!--/_footer /作为公共模版分离出去-->
+
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="static/js/WdatePicker.js"></script>
+    <script type="text/javascript" src="static/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="static/js/laypage1.js"></script>
+    <script type="text/javascript" src="static/js/a.js" ></script>
+    <script src="static/js/jquery-3.5.1.min.js"></script>
+</body>
+
+</html>
